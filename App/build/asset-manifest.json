@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/static/css/main.515370bf.css",
+    "main.js": "/static/js/main.fbbb5363.js",
+    "static/media/GothamSSm-Book_Web.woff2": "/static/media/GothamSSm-Book_Web.299e9ca606232b303d77.woff2",
+    "index.html": "/index.html",
+    "main.515370bf.css.map": "/static/css/main.515370bf.css.map",
+    "main.fbbb5363.js.map": "/static/js/main.fbbb5363.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.515370bf.css",
+    "static/js/main.fbbb5363.js"
+  ]
+}
