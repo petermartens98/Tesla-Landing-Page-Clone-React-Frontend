@@ -57,7 +57,7 @@ const NavBar = () => {
     navModelLinks = (
         <NavbarLinks>
           <NavLink href="/model-s">Model S</NavLink>
-          <NavLink href="/model-3">Model E</NavLink>
+          <NavLink href="/model-3">Model 3</NavLink>
           <NavLink href="/model-x">Model X</NavLink>
           <NavLink href="/model-y">Model Y</NavLink>
         </NavbarLinks>

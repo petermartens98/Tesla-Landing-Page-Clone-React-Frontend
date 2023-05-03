@@ -11,11 +11,14 @@ const modelImages = {
   modely: `${process.env.PUBLIC_URL}/images/ModelY.jpg`,
 };
 
+const HomeContainer = styled.div`
+`;
+
 const StyledHome = styled.div`
   background-image: url(${props => modelImages[props.currentModel]});
   background-size: cover;
   height: 100vh;
-  min-height: 480px;
+  min-height: 580px;
 
   @media only screen and (min-width: 768px) {
     background-position: 50% 30%;
@@ -52,8 +55,10 @@ const ViewInvLink = styled.div`
   top: clamp(220px, calc(22% + 60px), 480px);
   left: 50%;
   transform: translate(-50%, -50%);
+  transition: 0.1s ease-in-out;
   &:hover{
     cursor: pointer;
+    font-weight:bold;
   }
   @media only screen and (max-width: 768px) {
     font-size: 18px;
@@ -66,10 +71,11 @@ const ButtonWrapper = styled.div`
   width: 480px; /* total width of both buttons (200px each) plus spacing (40px) */
   margin: 0 auto; /* center the wrapper div */
   position: fixed;
-  top: clamp(300px, 85%, 1280px);
+  top: clamp(320px, 90%, 1280px);
   left: 0;
   right: 0;
   @media (max-width: 768px) {
+    top: clamp(370px, 90%, 1280px);
     flex-direction: column;
     align-items: center;
     gap:7px;
@@ -80,29 +86,67 @@ const ButtonWrapper = styled.div`
 const OrderNowButton = styled.button`
   font-size: 18px;
   cursor: pointer;
-  background-color: rgba(39, 55, 70, 0.75);
-  color: rgba(229, 231, 233, 1);
+  background-color: rgba(0, 0, 0, 0.75);
+  color: rgba(255,255,255,0.8);
   width:300px;
   padding: 12px 24px;
   border: none;
   border-radius: 4px;
+  transition: background-color 0.4s ease-in-out;
   &:hover {
-    background-color: rgba(39, 55, 70, 0.9);
+    background-color: rgba(0, 0, 0, 0.85);
   }
 `;
 
 const DemoDriveButton = styled.button`
   font-size: 18px;
-  background-color: rgba(229, 231, 233, 0.75);
+  background-color: rgba(255, 255, 255, 0.5);
   cursor:pointer;
   width:300px;
-  color: rgba(39, 55, 70, 1);
+  color: black;
   padding: 12px 24px;
   border: none;
   border-radius: 4px;
+  transition: background-color 0.4s ease-in-out;
   &:hover {
-    background-color: rgba(229, 231, 233, 0.9);
+    background-color: rgba(255, 255, 255, 0.9);
   }
+`;
+
+const CarStats = styled.div`
+  max-width: 820px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+  margin: 0 auto;
+  margin-bottom: 12 px;
+  position: fixed;
+  top: clamp(260px, calc(90% - 100px), 1280px);
+  left: 0;
+  right: 0;
+
+  div {
+    flex-basis: calc(100% / 3);
+    text-align: center;
+
+    b {
+      font-size: 16px;
+      color: #666;
+      margin-top: 8px;
+      margin-bottom: 4px;
+      ${props => props.currentModel === 'modelx' && `
+        color:darkgray;
+      `}
+    }
+
+    span {
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+    }
+  }
+
 `;
 const Home = () => {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
@@ -134,23 +178,72 @@ const Home = () => {
     return `${firstLetter}${middle} ${lastLetter}`;
   };
 
+  let range;
+  let acceleration;
+  let topSpeed;
+  switch (currentModel) {
+    case "models":
+      range = 396;
+      acceleration = 1.99;
+      topSpeed = 200;
+      break;
+    case "model3":
+      range = 325;
+      acceleration = 3.1;
+      topSpeed = 140;
+      break;
+    case "modelx":
+      range = 333;
+      acceleration = 2.5;
+      topSpeed = 163;
+      break;
+    case "modely":
+      range = 330;
+      acceleration = 3.5;
+      topSpeed = 155;
+      break;
+    default:
+      range = 330;
+      acceleration = 3.5;
+      topSpeed = 155;
+  };
+
   return (
     <>
-      <MessageBar msg={message} />
+    <HomeContainer>
       <NavBar />
-      <StyledHome currentModel={currentModel}>
-        <ModelTitle>{capitalize(currentModel)}</ModelTitle>
-        <ViewInvLink>View Inventory</ViewInvLink>
-
-        <ButtonWrapper>
-          <OrderNowButton>Order Now</OrderNowButton>
-          <div style={{ width: '40px' }}></div> {/* spacing between buttons */}
-          <DemoDriveButton>Demo Drive</DemoDriveButton>
-        </ButtonWrapper>
-      </StyledHome>
+        <MessageBar msg={message} />
+        <NavBar />
+        <StyledHome currentModel={currentModel}>
+          <ModelTitle>{capitalize(currentModel)}</ModelTitle>
+          <ViewInvLink>View Inventory</ViewInvLink>
+          <CarStats currentModel={currentModel}>
+          <div>
+            <span>{range} mi</span>
+            <br/>
+            <b>Range</b>
+          </div>
+          <div>
+            <span>{acceleration} s</span>
+            <br/>
+            <b>0-60 mph*</b>
+          </div>
+          <div>
+            <span>{topSpeed} mph</span>
+            <br/>
+            <b>Top Speed†</b>
+          </div>
+          </CarStats>
+          <ButtonWrapper>
+            <OrderNowButton>Order Now</OrderNowButton>
+            <div style={{ width: '40px' }}></div> {/* spacing between buttons */}
+            <DemoDriveButton>Demo Drive</DemoDriveButton>
+          </ButtonWrapper>
+        </StyledHome>
+    </HomeContainer>
     </>
   );
-};
+  };
 
 export default Home;
 
