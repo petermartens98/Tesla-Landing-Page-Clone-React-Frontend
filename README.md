@@ -1,4 +1,4 @@
-# Tesla-Clone-React-Frontend
+# Tesla Landing Page Clone React Frontend
 Web and mobile friendly interactive frontend built in React, inspired by the Tesla landing page
 ### Deployment: https://teslaclone-385601.uc.r.appspot.com/model-s
 ### Web Screenshot
